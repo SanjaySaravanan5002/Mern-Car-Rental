@@ -1,28 +1,29 @@
 require("dotenv").config();
-const  express = require("express");
+
+const express = require("express");
 const cors = require("cors");
-const ConnectDb = require("./Config/Db");
+const connectDB = require("./config/db");
+
 const app = express();
+
 //DB Connection
-ConnectDb();
-//Middleware
+connectDB();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
 //Routes
-app.use("api/auth",require("Routes/Auth"));
+app.use("/api/auth", require("./Routes/authRoutes"));
 
-//test route
-app.get("/",(req,res)=>{
-    res.send("ApI is running");
+//Test route
+app.get("/", (req, res) => {
+res.send("API is running 🚀");
 });
 
-//server
-const PORT = process.env.PORT||5000;
-app.listen(PORT,()=>{
-    console.log(`Server is running on port ${PORT}`);
+//Server start
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+console.log(`Server is running on port ${PORT}`);
 });
-
-
-
-
